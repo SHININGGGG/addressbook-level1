@@ -98,6 +98,10 @@ public class AddressBook {
     private static final String PERSON_STRING_REPRESENTATION = "%1$s " // name
                                                             + PERSON_DATA_PREFIX_PHONE + "%2$s " // phone
                                                             + PERSON_DATA_PREFIX_EMAIL + "%3$s"; // email
+
+    private static final String COMMAND_SORT_WORD = "sort";
+    private static final String COMMAND_SORT_DESC = "Sort and display the current list.";
+
     private static final String COMMAND_ADD_WORD = "add";
     private static final String COMMAND_ADD_DESC = "Adds a person to the address book.";
     private static final String COMMAND_ADD_PARAMETERS = "NAME "
@@ -178,6 +182,18 @@ public class AddressBook {
      * ====================================================================================================
      */
 
+    private static void sortPeople(){
+        ArrayList<String[]> temp = new ArrayList<String[]>();
+        ArrayList<String> names = new ArrayList<String>();
+        temp = getAllPersonsInAddressBook();
+        for(int i=0; i<getAllPersonsInAddressBook().size(); i++){
+            String element = temp.get(i)[0];
+            names.add(element);
+        }
+        Collections.sort(names);
+        for(String j : names)
+            System.out.println(j);
+    }
     /**
      * List of all persons in the address book.
      */
@@ -205,6 +221,7 @@ public class AddressBook {
      * referenced by the high-level method below.
      * ====================================================================
      */
+
 
     public static void main(String[] args) {
         showWelcomeMessage();
@@ -369,6 +386,8 @@ public class AddressBook {
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
         switch (commandType) {
+            case COMMAND_SORT_WORD:
+                sortPeople();
         case COMMAND_ADD_WORD:
             return executeAddPerson(commandArgs);
         case COMMAND_FIND_WORD:
